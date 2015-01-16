@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.alizarion.crossview</groupId>
+        <artifactId>crossview</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.alizarion.crossview.app</groupId>
+    <artifactId>crossview-ear</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>ear</packaging>
+
+    <name>CrossView packaged application .</name>
+    <description>
+        contain all crossview app modules
+    </description>
+
+    <developers>
+        <developer>
+            <id>selim.bensenouci</id>
+            <email>selim.bensenouci@gmail.com</email>
+            <name>Selim Bensenouci</name>
+            <organization>Alizarion</organization>
+        </developer>
+
+    </developers>
+
+    <dependencies>
+        <!-- tomcat deployment  dependencies
+
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-entitymanager</artifactId>
+          <version>4.1.4.Final</version>
+            <exclusions>
+            <exclusion>
+              <groupId>org.hibernate.javax.persistence</groupId>
+              <artifactId>hibernate-jpa-2.0-api</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.jboss.spec.javax.transaction</groupId>
+              <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+    -->
+
+        <!--crossview dependencies -->
+        <dependency>
+            <groupId>com.alizarion.crossview.web</groupId>
+            <artifactId>webapp</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alizarion.crossview.hoover</groupId>
+            <artifactId>hoover</artifactId>
+            <version>${project.parent.version}</version>
+            <type>ejb</type>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.alizarion.crossview.persistence</groupId>
+            <artifactId>persistence-unit</artifactId>
+            <version>${project.parent.version}</version>
+            <type>jar</type>
+        </dependency>
+
+        <!-- oauth2 dependencies must be included -->
+
+        <dependency>
+            <groupId>com.alizarion.reference.security.oauth.web</groupId>
+            <artifactId>oauth2-authorization-web</artifactId>
+            <version>${com.alizarion.reference.oauth.version}</version>
+            <type>war</type>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.alizarion.crossview.entities</groupId>
+            <artifactId>business-entities</artifactId>
+            <version>${project.parent.version}</version>
+            <type>jar</type>
+        </dependency>
+
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <!-- specific business app dependencies -->
+
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.9</version>
+
+                <configuration>
+                    <defaultJavaBundleDir>lib/</defaultJavaBundleDir>
+                    <packagingIncludes>**/dom4j-*.jar</packagingIncludes>
+
+                    <skinnyWars>true</skinnyWars>
+                    <workDirectory>target/crossview.ear</workDirectory>
+                    <modules>
+                        <webModule>
+                            <groupId>com.alizarion.reference.security.oauth.web</groupId>
+                            <artifactId>oauth2-authorization-web</artifactId>
+                            <unpack>true</unpack>
+                        </webModule>
+                    </modules>
+                </configuration>
+
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/alizarion/crossview-server.git/crossview/crossview-app-ear/</developerConnection>
+        <url>https://github.com/alizarion/crossview-server.git/crossview/crossview-app-ear/</url>
+    </scm>
+</project>

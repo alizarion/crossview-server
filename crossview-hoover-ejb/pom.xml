@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.alizarion.crossview</groupId>
+        <artifactId>crossview</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.alizarion.crossview.hoover</groupId>
+    <artifactId>hoover</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>ejb</packaging>
+
+    <name>CrossView Hoover that extract web data.</name>
+    <description>
+        Hoover that extract web data from and url
+    </description>
+
+
+    <properties>
+        <crossview.entities.class.path>${parent.basedir}/crossview-business-entities/target/classes/</crossview.entities.class.path>
+
+    </properties>
+
+    <developers>
+        <developer>
+            <id>selim.bensenouci</id>
+            <email>selim.bensenouci@gmail.com</email>
+            <name>Selim Bensenouci</name>
+            <organization>Alizarion</organization>
+        </developer>
+
+    </developers>
+
+    <dependencies>
+
+
+        <dependency>
+            <groupId>com.alizarion.crossview.entities</groupId>
+            <artifactId>business-entities</artifactId>
+            <version>${parent.version}</version>
+            <scope>test</scope>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.alizarion.crossview.entities</groupId>
+            <artifactId>business-entities</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <!-- html content parsing-->
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <configuration>
+                    <ejbVersion>3.2</ejbVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/alizarion/shared-references.git/static-params/</developerConnection>
+        <url>https://github.com/alizarion/shared-references.git/static-params/</url>
+    </scm>
+</project>

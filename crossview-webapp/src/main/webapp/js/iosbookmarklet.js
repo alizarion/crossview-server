@@ -1,0 +1,1 @@
+javascript:window.location='crossview://?url='+encodeURIComponent(location.href);

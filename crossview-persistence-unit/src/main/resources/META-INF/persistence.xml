@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="crossViewTest" transaction-type="JTA">
+        <jta-data-source>java:/CrossViewDS</jta-data-source>
+
+        <class>com.alizarion.reference.social.entities.comment.Comment</class>
+        <class>com.alizarion.reference.social.entities.comment.Comment</class>
+        <class>com.alizarion.reference.social.entities.comment.CommentNotification</class>
+        <class>com.alizarion.reference.social.entities.notification.Notification</class>
+        <class>com.alizarion.reference.social.entities.notification.Notifier</class>
+        <class>com.alizarion.reference.social.entities.notification.Subject</class>
+        <class>com.alizarion.reference.social.entities.notification.Observer</class>
+        <class>com.alizarion.reference.social.entities.appretiation.Like</class>
+        <class>com.alizarion.reference.social.entities.appretiation.DisLike</class>
+        <class>com.alizarion.reference.social.entities.appretiation.Appreciation</class>
+        <class>com.alizarion.reference.social.entities.appretiation.DisLikeNotification</class>
+        <class>com.alizarion.reference.social.entities.comment.SignaledCommentNotification</class>
+        <class>com.alizarion.crossview.entities.notifications.FollowNotification</class>
+        <class>com.alizarion.crossview.entities.notifications.PublishNotification</class>
+        <class>com.alizarion.crossview.entities.notifications.RelayedNotification</class>
+        <class>com.alizarion.crossview.entities.Account</class>
+        <class>com.alizarion.crossview.entities.User</class>
+        <class>com.alizarion.crossview.entities.Profile</class>
+        <class>com.alizarion.crossview.entities.Publication</class>
+        <class>com.alizarion.crossview.entities.PublicationContent</class>
+        <class>com.alizarion.crossview.entities.WebContent</class>
+        <class>com.alizarion.reference.security.entities.Credential</class>
+        <class>com.alizarion.reference.security.entities.Role</class>
+        <class>com.alizarion.reference.security.entities.CredentialRole</class>
+        <class>com.alizarion.reference.security.entities.ResetPasswordToken</class>
+        <class>com.alizarion.reference.security.entities.RoleGroup</class>
+        <class>com.alizarion.reference.security.entities.SecurityToken</class>
+        <class>com.alizarion.reference.security.entities.SignInAttempt</class>
+        <class>com.alizarion.reference.security.entities.ValidateEmailToken</class>
+        <class>com.alizarion.reference.filemanagement.entities.ImageManagedFile</class>
+        <class>com.alizarion.reference.person.entities.PhysicalPerson</class>
+        <class>com.alizarion.reference.person.entities.Person</class>
+        <class>com.alizarion.reference.location.entities.Address</class>
+        <class>com.alizarion.reference.location.entities.ElectronicAddress</class>
+        <class>com.alizarion.reference.location.entities.PhysicalAddress</class>
+        <class>com.alizarion.reference.location.entities.PhoneAddress</class>
+        <class>com.alizarion.reference.location.entities.Country</class>
+        <class>com.alizarion.reference.filemanagement.entities.ManagedFile</class>
+        <class>com.alizarion.reference.filemanagement.entities.ImageFileMetaData</class>
+        <class>com.alizarion.reference.filemanagement.entities.GenericFileMetaData</class>
+        <class>com.alizarion.reference.filemanagement.entities.ManagedFileMetaData</class>
+        <class>com.alizarion.crossview.entities.notifications.CrossNotification</class>
+        <class>com.alizarion.crossview.entities.notifications.RefuteNotification</class>
+        <class>com.alizarion.crossview.entities.Tag</class>
+        <class>com.alizarion.crossview.entities.RSSFeed</class>
+        <class>com.alizarion.crossview.entities.WebView</class>
+        <class>com.alizarion.crossview.entities.CrossLink</class>
+        <class>com.alizarion.crossview.entities.WebContentCache</class>
+        <class>com.alizarion.crossview.entities.WebContentCacheID</class>
+        <class>com.alizarion.crossview.entities.WebHost</class>
+        <class>com.alizarion.reference.location.entities.WebAddress</class>
+        <class>com.alizarion.reference.resource.entities.PersistentResource</class>
+        <class>com.alizarion.reference.filemanagement.entities.GenericFileMetaData</class>
+
+        <!-- oauth jpa entities -->
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthAccessToken</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthApplication</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthApplicationKey</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthAuthorization</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthCredential</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthCryptAlgFamily</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthDuration</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthResponseType</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthRole</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthScope</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthScopeGroup</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.OAuthSignature</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.ScopeGroupKey</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.ScopeKey</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.Token</class>
+
+        <!-- oauth client-->
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.client.OAuthCachedJWKCertificate</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.client.OAuthClientAuthorization</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.client.OAuthScopeClient</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.client.OAuthScopeClientGroup</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.client.OAuthServerApplication</class>
+
+        <!-- oauth server -->
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.server.OAuthClientApplication</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.server.OAuthScopeServer</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.server.OAuthScopeServerGroup</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.server.OAuthServerAuthorization</class>
+        <class>com.alizarion.reference.security.oauth.oauth2.entities.server.OAuthSignatureKeyPair</class>
+
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.max_fetch_depth" value="1"/>
+            <property name="hibernate.jdbc.batch_size" value="32" />
+            <property name="hibernate.archive.autodetection" value="class, hbm"/>
+            <!-- uncomment this to delegate hibernate to create the database-->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.import_files" value="/META-INF/sql/data.sql"/>
+
+            <!-- uncomment to load initial data -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.default_batch_fetch_size" value="32" />
+            <!--property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true"/-->
+        </properties>
+    </persistence-unit>
+</persistence>
