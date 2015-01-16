@@ -292,7 +292,7 @@ public class CrossviewEntitiesTest {
          WebContent content = (WebContent) em.find(PublicationContent.class,publication.getContent().getContentId());
         em.clear();
         System.out.print("publication count" + content.getPublicationCount());
-        System.out.print("trasaction :" + trx.isActive());
+        System.out.print("transaction :" + trx.isActive());
         trx.commit();
     }
 
