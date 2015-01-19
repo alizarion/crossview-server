@@ -170,6 +170,7 @@ public class AccountService  implements Serializable {
     @Produces("application/json")
     public PublicationDTO getPublicationByContent(@QueryParam("url")final String url)
             throws IOException, ParsingWebContentException, BadCredentialException {
+
         return new PublicationDTO(this.facade.getPublicationByWeContent(new URL(url)));
     }
 

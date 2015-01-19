@@ -1,5 +1,6 @@
 package com.alizarion.crossview.service;
 
+import com.alizarion.crossview.dto.HooverMessageDTO;
 import com.alizarion.crossview.entities.WebContent;
 import com.alizarion.crossview.entities.WebHost;
 import com.alizarion.crossview.exception.ParsingWebContentException;
@@ -58,6 +59,7 @@ public class HooverService implements Serializable {
     private URL getFollowRedirectUrl(URL url)   {
         try {
             URLConnection con = url.openConnection();
+            con.setUseCaches(false);
             con.connect();
             InputStream is = con.getInputStream();
             is.close();
@@ -79,8 +81,11 @@ public class HooverService implements Serializable {
             return webContent;
         } else {
             HtmlFetcher fetcher = new HtmlFetcher();
+            fetcher = fetcher.clearCacheCounter();
+            fetcher.setCache(null);
             try {
                 JResult readability = fetcher.fetchAndExtract(webContentFinalUrl.toString(), 5000, true);
+
                 WebHost  webHost = em.find(WebHost.class,webContentFinalUrl.toString()) ;
                 if (webHost == null){
                     webHost  =  new WebHost(webContentFinalUrl.getHost());
@@ -96,6 +101,25 @@ public class HooverService implements Serializable {
                         homePageFinalUrl.toString()
                         , 5000, true);
                 String rss = homePageResult.getRssUrl() ;
+                if (!rss.startsWith("http") && !rss.isEmpty()){
+                    //is relative fucking path
+                    if (rss.startsWith("/")) {
+                        rss = homePageResult.getCanonicalUrl()+  rss;
+                        
+                    }else {
+                        rss = homePageResult.getCanonicalUrl() + "/" + rss;
+                    }
+                }
+                String faviconStringUrl =  readability.getFaviconUrl();
+                if(!faviconStringUrl.startsWith("http") && !faviconStringUrl.isEmpty()){
+                    if (readability.getFaviconUrl().startsWith("/")){
+                        faviconStringUrl =  homePageResult.getCanonicalUrl() +  faviconStringUrl;
+
+                    }  else {
+                        faviconStringUrl =  homePageResult.getCanonicalUrl() + "/" +  faviconStringUrl;
+                    }
+                }
+
                 String homeTitle = homePageResult.getTitle();
                 //TODO get home page title and set it on webhost
                 webContent =
@@ -108,6 +132,7 @@ public class HooverService implements Serializable {
                                 .setText(readability.getText().length()> 25000 ?
                                         readability.getText().substring(0,25000):readability.getText())
                                 .setRssUrl(rss)
+                                .setFaviconUrl(faviconStringUrl)
                                 .setHomeTitle(homeTitle)
                                 .setImageUrl(readability.getImageUrl())
                                 .setVideoUrl(readability.getVideoUrl())
@@ -118,7 +143,7 @@ public class HooverService implements Serializable {
                 //TODO do not send readability object not full serializable
 
                 context.createProducer().send((Destination)hoover
-                        ,context.createObjectMessage(readability));
+                        ,context.createObjectMessage(new HooverMessageDTO(webContent)));
                 //  asyncHoover.getResources(webContent,readability);
 
                 return webContent;

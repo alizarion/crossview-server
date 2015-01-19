@@ -1,10 +1,10 @@
 package com.alizarion.crossview.entities;
 
 import com.alizarion.crossview.entities.notifications.LinkType;
-import com.alizarion.reference.social.entities.notification.Notification;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author selim@openlinux.fr.
@@ -35,6 +35,9 @@ public class CrossLink  implements Serializable {
     @JoinColumn(name = "publisher_id")
     private User publisher;
 
+    @Column(name = "creation_date")
+    private Date creationDate;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "linked_content_id")
     private Publication content;
@@ -56,6 +59,7 @@ public class CrossLink  implements Serializable {
         this.linkedWith = linkedWith;
         this.linker = linker;
         this.publisher = publication.getPublisher();
+        this.creationDate = new Date();
     }
 
     public Long getId() {
@@ -107,6 +111,10 @@ public class CrossLink  implements Serializable {
         this.content.removeFromLink(this);
         this.content.removeFromLinkedWith(this);
 
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     @Override

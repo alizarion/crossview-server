@@ -1,5 +1,6 @@
 package com.alizarion.crossview.service;
 
+import com.alizarion.crossview.dto.HooverMessageDTO;
 import com.alizarion.crossview.entities.DeviceViewPort;
 import com.alizarion.crossview.entities.WebContent;
 import com.alizarion.crossview.entities.WebContentCache;
@@ -8,7 +9,6 @@ import com.alizarion.crossview.mbean.CrossViewConfigMBean;
 import com.alizarion.crossview.mbean.PhantomJSMbean;
 import com.alizarion.reference.exception.ApplicationException;
 import com.alizarion.reference.filemanagement.tools.ImageFileHelper;
-import de.jetwick.snacktory.JResult;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.*;
@@ -43,26 +43,26 @@ public class HooverMDBQueue implements MessageListener {
     @PersistenceContext
     EntityManager em;
 
-    public void getResources(WebContent webContent,final JResult readability)
+    public void getResources(WebContent webContent)
             throws ApplicationException, IOException {
-        if (!StringUtils.isEmpty(readability.getImageUrl())){
+        if (!StringUtils.isEmpty(webContent.getImageURL().toString())){
             try {
                 webContent.setImage(ImageFileHelper.getAndManageImage(
                         this.em,
-                        new URL(readability.getImageUrl()),
+                        new URL(webContent.getImageURL().toString()),
                         this.config.getManagedFileRootFolder().toString()));
 
             } catch (IOException | ApplicationException ignored) {
             }
         }
-        if (!StringUtils.isEmpty(readability.getFaviconUrl())
+        if (!StringUtils.isEmpty(webContent.getWebHost().getTempFaviconUrl())
                 && webContent.getWebHost().getFaviconImage() ==null){
             try {
                 webContent.
                         getWebHost().
                         setFaviconImage(ImageFileHelper.
                                 getAndManageImage(this.em,
-                                        new URL(readability.getFaviconUrl()),
+                                        new URL(webContent.getWebHost().getTempFaviconUrl()),
                                         this.config.getManagedFileRootFolder().toString()));
 
             } catch (IOException | ApplicationException ignored) {
@@ -91,16 +91,16 @@ public class HooverMDBQueue implements MessageListener {
     public void onMessage(Message message) {
         if (message instanceof ObjectMessage){
             try {
-                if (((ObjectMessage) message).getObject() instanceof JResult){
-                    JResult readability  =  (JResult)((ObjectMessage) message).getObject();
+                if (((ObjectMessage) message).getObject() instanceof HooverMessageDTO){
+                    HooverMessageDTO messageDTO  =  (HooverMessageDTO)((ObjectMessage) message).getObject();
                     try {
                         WebContent webContent =  this.em.find(
                                 WebContent.class,
-                                readability.getUrl());
+                                messageDTO.getContentId().toString());
                         this.em.clear();
                         this.em.flush();
                         if (webContent!= null) {
-                            getResources(webContent, readability);
+                            getResources(webContent);
                         }
                     } catch (ApplicationException | IOException e) {
                         e.printStackTrace();

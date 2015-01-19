@@ -37,8 +37,8 @@ public class WebContentDTO {
     @XmlAttribute(name = "description")
     private String description;
 
-    @XmlAttribute(name = "image_url")
-    private String image_url;
+    @XmlAttribute(name = "temporaryImageUrl")
+    private String temporaryImageUrl;
 
     @XmlElement(name = "imageCache")
     private ImageManagedFileDTO image;
@@ -64,7 +64,7 @@ public class WebContentDTO {
         this.host =  content.getWebHost().getWebSiteId();
         this.publicationCount = content.getPublicationCount();
         this.rss = content.getWebHost().getRssFeed() != null ?  new FeedDTO(content.getWebHost().getRssFeed()) : null;
-        this.image_url = StringUtils.isEmpty(content.getImageURLAsString()) ? null: content.getImageURLAsString();
+        this.temporaryImageUrl = StringUtils.isEmpty(content.getImageURLAsString()) ? null: content.getImageURLAsString();
         this.image = content.getImage() != null ? new ImageManagedFileDTO(content.getImage()) : null ;
         for(WebContentCache cache : content.getCache()){
             this.cache.add(new WebContentCacheDTO(cache));
@@ -109,12 +109,12 @@ public class WebContentDTO {
         this.description = description;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getTemporaryImageUrl() {
+        return temporaryImageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setTemporaryImageUrl(String temporaryImageUrl) {
+        this.temporaryImageUrl = temporaryImageUrl;
     }
 
     public String getUrl() {

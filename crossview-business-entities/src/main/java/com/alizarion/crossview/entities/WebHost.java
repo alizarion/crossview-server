@@ -36,6 +36,9 @@ public class WebHost implements Serializable {
             ,optional = true)
     private ImageManagedFile faviconImage;
 
+    @Column(name = "favicon_url")
+    private String  tempFaviconUrl;
+
     protected WebHost() {
     }
 
@@ -69,6 +72,10 @@ public class WebHost implements Serializable {
         this.rssFeed = rssFeed;
     }
 
+    public String getTempFaviconUrl() {
+        return tempFaviconUrl;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -91,6 +98,10 @@ public class WebHost implements Serializable {
                 !webSiteId.equals(webSite.webSiteId) :
                 webSite.webSiteId != null);
 
+    }
+
+    public void setTempFaviconUrl(String tempFaviconUrl) {
+        this.tempFaviconUrl = tempFaviconUrl;
     }
 
     @Override

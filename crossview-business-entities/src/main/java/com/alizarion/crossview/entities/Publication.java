@@ -72,19 +72,23 @@ public  class  Publication extends Subject<Account> implements Serializable {
                 joinColumns = @JoinColumn(name = "publication_id",nullable = false),
                 inverseJoinColumns = @JoinColumn(name = "allege_publication_id",nullable = false))
     private Set<Publication> allege = new HashSet<>(); */
+
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "content")
     private Set<CrossLink> links = new HashSet<>();
 
 
-    @Column(name = "last_update_date", nullable = false)
-    private Date lastUpdate;
-
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "linkedWith")
     private Set<CrossLink> linkedWith = new HashSet<>();
+
+
+
+
+    @Column(name = "last_update_date", nullable = false)
+    private Date lastUpdate;
 
 
     protected Publication() {

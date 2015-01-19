@@ -144,6 +144,8 @@ public class WebContent extends PublicationContent  {
 
         private String imageURL;
 
+        private String faviconUrl;
+
         private String homeTitle;
 
         private WebHost webHost;
@@ -180,6 +182,14 @@ public class WebContent extends PublicationContent  {
                 throws MalformedURLException {
             this.videoUrl =  StringUtils.isEmpty(videoUrl) ?
                     null : new URL(videoUrl);
+            return this;
+        }
+
+        public Builder setFaviconUrl(final String faviconUrl)
+                throws MalformedURLException {
+            if (!StringUtils.isEmpty(faviconUrl)) {
+                this.webHost.setTempFaviconUrl(faviconUrl);
+            }
             return this;
         }
 

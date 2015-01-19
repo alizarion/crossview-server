@@ -20,7 +20,10 @@ public class WebHostDTO {
     private String hostUrl;
 
     @XmlAttribute(name = "faviconImgId")
-    private String faviconImage;
+    private ImageManagedFileDTO faviconImage;
+
+    @XmlAttribute(name = "temporaryFaviconUrl")
+    private String temporaryFaviconUrl;
 
     @XmlAttribute(name = "title")
     private String title;
@@ -35,8 +38,9 @@ public class WebHostDTO {
     public WebHostDTO(WebHost webHost) {
         this.hostUrl = webHost.getWebSiteId();
         this.faviconImage = webHost.getFaviconImage() != null
-                ? webHost.getFaviconImage().getUUID(): null;
+                ? new ImageManagedFileDTO(webHost.getFaviconImage()): null;
         this.title =  webHost.getTitle();
+        this.temporaryFaviconUrl = webHost.getTempFaviconUrl();
     }
 
     public void setFeed(RSSFeed feed)
